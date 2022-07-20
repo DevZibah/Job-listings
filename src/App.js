@@ -4,22 +4,51 @@ import data from './data.json'
 import Jobs from './components/Jobs'
 import header from './images/bg-header-mobile.svg'
 import Searchedjob from './components/Searchedjob'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect, useCallback } from 'react'
 import { JobContext } from './contexts/JobContext'
 const App = () => {
   const { key, setKey } = useContext(JobContext)
   const [array, setArray] = useState([])
-  const [newrole, setNewrole] = useState()
-  const [newlevel, setNewlevel] = useState()
-  const [newlanguage, setNewlanguage] = useState()
-  const [newtool, setNewtool] = useState()
+  const [newrole, setNewrole] = useState([])
+  const [newlevel, setNewlevel] = useState([])
+  const [newlanguage, setNewlanguage] = useState([])
+  const [newtool, setNewtool] = useState([])
 
-  const AddArray = [newrole, newlevel, newlanguage, newtool]
-  const AddToArray = () => {
-    setArray(AddArray)
+  const AddArray = [...newrole, ...newlevel, ...newlanguage, ...newtool]
+
+  // This function below removes duplicate elements from the array
+  const uniqueAddArray = AddArray.filter((item, index) => {
+    return AddArray.indexOf(item) === index
+  })
+
+  // const AddToArray = () => {
+  //   setArray([...uniqueAddArray])
+  // }
+  // useEffect(() => {
+  //   AddToArray()
+  // }, [])
+
+  // This function is to delete items from the array
+  const deleteItem = (item) => {
+    if (newrole.includes(item)) {
+      setNewrole(newrole.filter((el) => el !== item))
+    } else if (newlevel.includes(item)) {
+      setNewlevel(newlevel.filter((el) => el !== item))
+    } else if (newlanguage.includes(item)) {
+      setNewlanguage(newlanguage.filter((el) => el !== item))
+    } else {
+      setNewtool(newtool.filter((el) => el !== item))
+    }
+  }
+  const clearItem = () => {
+    setNewrole([])
+    setNewlevel([])
+    setNewlanguage([])
+    setNewtool([])
   }
   console.log(data)
-  console.log(newlanguage)
+  console.log(uniqueAddArray)
+
   return (
     <div className='App'>
       <header className='border border-danger'>
@@ -44,16 +73,14 @@ const App = () => {
                   <div>
                     <p
                       onClick={() => (
-                        setKey(false), setNewrole(item.role)
-                        // setArray(item.role)
+                        setKey(false), setNewrole([...newrole, item.role])
                       )}
                     >
                       {item.role}
                     </p>
                     <p
                       onClick={() => (
-                        setKey(false), setNewlevel(item.level)
-                        // setArray(item.level)
+                        setKey(false), setNewlevel([...newlevel, item.level])
                       )}
                     >
                       {item.level}
@@ -64,7 +91,8 @@ const App = () => {
                           <div key={key}>
                             <p
                               onClick={() => (
-                                setKey(false), setNewlanguage(item)
+                                setKey(false),
+                                setNewlanguage([...newlanguage, item])
                               )}
                             >
                               {item}
@@ -78,7 +106,9 @@ const App = () => {
                         return (
                           <div key={key}>
                             <p
-                              onClick={() => (setKey(false), setNewtool(item))}
+                              onClick={() => (
+                                setKey(false), setNewtool([...newtool, item])
+                              )}
                             >
                               {item}
                             </p>
@@ -94,16 +124,20 @@ const App = () => {
         ) : (
           <div>
             <header>
-              <p>{AddArray}</p>
+              {uniqueAddArray.map((item, key) => {
+                return (
+                  <div key={key}>
+                    <p>{item}</p>
+                    <p onClick={() => deleteItem(item)}>close</p>
+                  </div>
+                )
+              })}
+              <p onClick={clearItem}>clear</p>
             </header>
             <section>
               {data
                 .filter((item) => {
-                  if (
-                    item.role === newrole
-                    // item.level === newlevel ||
-                    // item.language === newlanguage
-                  ) {
+                  if (AddArray.includes(item.role)) {
                     return item
                   }
                 })
@@ -121,13 +155,16 @@ const App = () => {
                       <hr />
                       <div>
                         <p
-                          onClick={() => (setKey(false), setNewrole(item.role))}
+                          onClick={() => (
+                            setKey(false), setNewrole([...newrole, item.role])
+                          )}
                         >
                           {item.role}
                         </p>
                         <p
                           onClick={() => (
-                            setKey(false), setNewlevel(item.level)
+                            setKey(false),
+                            setNewlevel([...newlevel, item.level])
                           )}
                         >
                           {item.level}
@@ -138,7 +175,8 @@ const App = () => {
                               <div key={key}>
                                 <p
                                   onClick={() => (
-                                    setKey(false), setNewlanguage(item)
+                                    setKey(false),
+                                    setNewlanguage([...newlanguage, item])
                                   )}
                                 >
                                   {item}
@@ -153,7 +191,8 @@ const App = () => {
                               <div key={key}>
                                 <p
                                   onClick={() => (
-                                    setKey(false), setNewtool(item)
+                                    setKey(false),
+                                    setNewtool([...newtool, item])
                                   )}
                                 >
                                   {item}
@@ -170,9 +209,12 @@ const App = () => {
             <section>
               {data
                 .filter((item) => {
-                  if (item.level === newlevel) {
+                  if (AddArray.includes(item.level)) {
                     return item
                   }
+                  // if (newlevel.includes(item.level)) {
+                  //   return item
+                  // }
                 })
                 .map((item, key) => {
                   return (
@@ -188,13 +230,16 @@ const App = () => {
                       <hr />
                       <div>
                         <p
-                          onClick={() => (setKey(false), setNewrole(item.role))}
+                          onClick={() => (
+                            setKey(false), setNewrole([...newrole, item.role])
+                          )}
                         >
                           {item.role}
                         </p>
                         <p
                           onClick={() => (
-                            setKey(false), setNewlevel(item.level)
+                            setKey(false),
+                            setNewlevel([...newlevel, item.level])
                           )}
                         >
                           {item.level}
@@ -205,7 +250,8 @@ const App = () => {
                               <div key={key}>
                                 <p
                                   onClick={() => (
-                                    setKey(false), setNewlanguage(item)
+                                    setKey(false),
+                                    setNewlanguage([...newlanguage, item])
                                   )}
                                 >
                                   {item}
@@ -220,7 +266,8 @@ const App = () => {
                               <div key={key}>
                                 <p
                                   onClick={() => (
-                                    setKey(false), setNewtool(item)
+                                    setKey(false),
+                                    setNewtool([...newtool, item])
                                   )}
                                 >
                                   {item}
@@ -237,7 +284,7 @@ const App = () => {
             <section>
               {data
                 .filter((item) => {
-                  if (item.languages.includes(newlanguage)) {
+                  if (AddArray.includes(...item.languages)) {
                     return item
                   }
                 })
@@ -255,13 +302,16 @@ const App = () => {
                       <hr />
                       <div>
                         <p
-                          onClick={() => (setKey(false), setNewrole(item.role))}
+                          onClick={() => (
+                            setKey(false), setNewrole([...newrole, item.role])
+                          )}
                         >
                           {item.role}
                         </p>
                         <p
                           onClick={() => (
-                            setKey(false), setNewlevel(item.level)
+                            setKey(false),
+                            setNewlevel([...newlevel, item.level])
                           )}
                         >
                           {item.level}
@@ -272,7 +322,8 @@ const App = () => {
                               <div key={key}>
                                 <p
                                   onClick={() => (
-                                    setKey(false), setNewlanguage(item)
+                                    setKey(false),
+                                    setNewlanguage([...newlanguage, item])
                                   )}
                                 >
                                   {item}
@@ -287,7 +338,8 @@ const App = () => {
                               <div key={key}>
                                 <p
                                   onClick={() => (
-                                    setKey(false), setNewtool(item)
+                                    setKey(false),
+                                    setNewtool([...newtool, item])
                                   )}
                                 >
                                   {item}
@@ -304,7 +356,7 @@ const App = () => {
             <section>
               {data
                 .filter((item) => {
-                  if (item.tools.includes(newtool)) {
+                  if (AddArray.includes(...item.tools)) {
                     return item
                   }
                 })
@@ -322,13 +374,16 @@ const App = () => {
                       <hr />
                       <div>
                         <p
-                          onClick={() => (setKey(false), setNewrole(item.role))}
+                          onClick={() => (
+                            setKey(false), setNewrole([...newrole, item.role])
+                          )}
                         >
                           {item.role}
                         </p>
                         <p
                           onClick={() => (
-                            setKey(false), setNewlevel(item.level)
+                            setKey(false),
+                            setNewlevel([...newlevel, item.level])
                           )}
                         >
                           {item.level}
@@ -339,7 +394,8 @@ const App = () => {
                               <div key={key}>
                                 <p
                                   onClick={() => (
-                                    setKey(false), setNewlanguage(item)
+                                    setKey(false),
+                                    setNewlanguage([...newlanguage, item])
                                   )}
                                 >
                                   {item}
@@ -354,7 +410,8 @@ const App = () => {
                               <div key={key}>
                                 <p
                                   onClick={() => (
-                                    setKey(false), setNewtool(item)
+                                    setKey(false),
+                                    setNewtool([...newtool, item])
                                   )}
                                 >
                                   {item}
