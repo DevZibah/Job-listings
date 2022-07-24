@@ -27,6 +27,9 @@ body {
   background-color: var( --LightGrayishCyanBackground);
   font-family: 'Nunito Sans', sans-serif;
 }
+.headerr{
+  background-color: var(--DesaturatedDarkCyan);
+}
 @media (min-width: 768px) {
 }
 @media (min-width: 1024px) {
