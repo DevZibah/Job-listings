@@ -30,6 +30,13 @@ body {
 .headerr {
   background-color: var(--DesaturatedDarkCyan);
 }
+.headerr1 {
+  display: block;
+  background-color: var(--DesaturatedDarkCyan);
+}
+.headerr2 {
+  display: none;
+}
 .footP {
   border: 1px solid var(--LightGrayishCyanBackground);
   border-radius: 6px;
@@ -108,8 +115,94 @@ body {
   font-weight: 600;
 }
 @media (min-width: 768px) {
+  .headerr1 {
+    display: none;
+  }
+  .headerr2 {
+    display: block;
+    background-color: var(--DesaturatedDarkCyan);
+    width: 100%;
+  }
+  .image img {
+    margin-top: 1rem;
+    width: 5rem;
+  }
+  .sec-one {
+    display: flex;
+  }
+  .footPone {
+    font-size: 16px;
+  }
+  .grid1 {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 10px;
+  }
+  .grid3 {
+    width: 60%;
+  }
+  .grid4 {
+    margin-left: 4rem;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 10px;
+  }
+  .main-header {
+    transform: translateY(-4rem);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 10px;
+  }
 }
 @media (min-width: 1024px) {
+  .image img {
+    width: 5rem;
+  }
+  .hline {
+    display: none;
+  }
+  .grid4 {
+    margin-top: 3.4rem;
+  }
+  .grid5 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+  .position {
+    font-size: 16px;
+  }
+  .position:hover {
+    cursor: pointer;
+    color: var(--DesaturatedDarkCyan);
+    font-weight: 700;
+  }
+  .grid2 {
+    font-size: 15px;
+  }
+  .main-header {
+    transform: translateY(-4rem);
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 10px;
+  }
+  .footP:hover {
+    border: 1px solid var(--DesaturatedDarkCyan);
+    background-color: var(--DesaturatedDarkCyan);
+    color: white;
+    cursor: pointer;
+  }
+  .fleximg:hover {
+    border: 1px solid var(--VeryDarkGrayishCyan);
+    cursor: pointer;
+    background-color: var(--VeryDarkGrayishCyan);
+  }
+  .cleear:hover {
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: underline;
+    color: var(--DesaturatedDarkCyan);
+  }
 }
 @media (min-width: 1440px) {
 }

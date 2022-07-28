@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from 'react'
 import Jobs from './components/Jobs'
 import data from './data.json'
 import header from './images/bg-header-mobile.svg'
+import header1 from './images/bg-header-desktop.svg'
 import Searchedjob from './components/Searchedjob'
 import { Switch, Route } from 'react-router-dom'
 import { JobContext } from './contexts/JobContext'
@@ -24,7 +25,8 @@ const App = () => {
   return (
     <div className='App'>
       <header className='border border-danger headerr'>
-        <img src={header} alt='' />
+        <img className='headerr1' src={header} alt='' />
+        <img className='headerr2' src={header1} alt='' />
       </header>
       <div>
         {key ? (
