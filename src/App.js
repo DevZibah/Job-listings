@@ -24,7 +24,7 @@ const App = () => {
   console.log(data)
   return (
     <div className='App'>
-      <header className='border border-danger headerr'>
+      <header className='headerr'>
         <img className='headerr1' src={header} alt='' />
         <img className='headerr2' src={header1} alt='' />
       </header>

@@ -40,7 +40,7 @@ const Searchedjob = ({
   }
   console.log(uniqueAddArray)
   return (
-    <div className='border border-dark p-3 p-md-5'>
+    <div className='p-3 p-md-5'>
       {' '}
       <header className='bg-white main-header p-3 mt-n3'>
         {uniqueAddArray.map((item, key) => {

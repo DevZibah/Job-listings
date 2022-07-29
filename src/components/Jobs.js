@@ -13,7 +13,7 @@ const Jobs = ({
   setNewtool,
 }) => {
   return (
-    <section className='border border-dark p-3 p-md-5'>
+    <section className='p-3 p-md-5'>
       {data.map((item, key) => {
         return (
           <div
